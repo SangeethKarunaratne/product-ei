@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2016, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+  ~ Copyright (c) 2018, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
   ~
   ~ WSO2 Inc. licenses this file to you under the Apache License,
   ~ Version 2.0 (the "License"); you may not use this file except
@@ -16,7 +16,7 @@
   ~ under the License.
   -->
 
-<data name="JSONSample" enableBoxcarring="true" disableLegacyBoxcarringMode="true" serviceNamespace="http://ws.wso2.org/dataservice/samples/json_sample">
+<data name="JSONSampleTest" enableBatchRequests="true" serviceNamespace="http://ws.wso2.org/dataservice/samples/json_sample">
    <config id="default">
       <property name="org.wso2.ws.dataservice.driver">org.h2.Driver</property>
       <property name="org.wso2.ws.dataservice.protocol">jdbc:h2:file:./samples/data-services/database/DATA_SERV_SAMP3</property>
@@ -60,14 +60,14 @@
    <query id="updateEmployeeQuery" useConfig="default">
       <sql>update Employees set lastName=:lastName, firstName=:firstName, email=:email, salary=:salary where employeeNumber=:employeeNumber</sql>
       <param name="employeeNumber" sqlType="INTEGER"/>
-      <param name="lastName" sqlType="STRING">
+      <param name="lastName" optional="True" sqlType="STRING">
          <validateLength maximum="20" minimum="3"/>
       </param>
-      <param name="firstName" sqlType="STRING"/>
-      <param name="email" sqlType="STRING">
+      <param name="firstName" optional="True" sqlType="STRING"/>
+      <param name="email" optional="True" sqlType="STRING">
          <validatePattern pattern="(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|&quot;(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*&quot;)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])"/>
       </param>
-      <param defaultValue="1500" name="salary" sqlType="DOUBLE"/>
+      <param optional="True" name="salary" sqlType="DOUBLE"/>
    </query>
    <resource method="GET" path="offices">
       <call-query href="listOfficesSQL"/>
