@@ -141,7 +141,7 @@ public class JSONPayloadSampleTestCase extends DSSIntegrationTest {
     @Ignore
     @Test(groups = "wso2.dss", description = "Invoking POST Request without optional fields in JSON payload as " +
             "declared in the POST query")
-    public void performJsonPostRequestWithoutOptionalParameter() {
+    public void performJsonPostRequestWithOptionalParameter() {
 
         String postInsertPaymentPayload = "{\n" +
                 "\"employee\":{\n" +
@@ -153,7 +153,8 @@ public class JSONPayloadSampleTestCase extends DSSIntegrationTest {
                 "}";
         getHttpResponse(serviceEndPoint + "employee", "PUT", postInsertPaymentPayload);
         String response = getHttpResponse(serviceEndPoint + "employee/52", "GET", null);
-        Assert.assertTrue(response.contains("INCOMPATIBLE_PARAMETERS_ERROR"));
+        Assert.assertTrue(response.contains("{\"employees\":{\"employee\":[{\"lastName\":\"Karunaratne\"," +
+                "\"firstName\":\"Sangeeth\",\"salary\":18400.0}]}}"));
     }
 
     private String getHttpResponse(String endpoint, String requestMethod, String payload) {
