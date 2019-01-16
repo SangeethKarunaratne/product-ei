@@ -42,7 +42,10 @@ import java.util.List;
 /**
  * This class contains test cases to check the json functionality in sending batch request and single request to
  * data service without wrapping the json payload with _postemployee or _postemployee_batch_req
- * ie: the request path + request method.
+ * ie: the request patWithOptionalParameterh + request method.
+ *
+ * Contains test cases to check the functionality of optional attribute in query-param, where certain elements in
+ * defined in the query can be inserted or removed as per requirement of the user.
  */
 public class JSONPayloadSampleTestCase extends DSSIntegrationTest {
 
@@ -72,7 +75,7 @@ public class JSONPayloadSampleTestCase extends DSSIntegrationTest {
     @Test(groups = "wso2.dss", description = "Invoking POST Request with JSON payload without postemployee tag")
     public void performJsonPostRequest() {
 
-        String postInsertPaymentPayload = "{\n" +
+        String postInsertPayload = "{\n" +
                 "\"employee\":{\n" +
                 "\"employeeNumber\":52,\n" +
                 "\"lastName\":\"Karunaratne\",\n" +
@@ -81,7 +84,7 @@ public class JSONPayloadSampleTestCase extends DSSIntegrationTest {
                 "\"salary\":18400.00\n" +
                 "}\n" +
                 "}";
-        getHttpResponse(serviceEndPoint + "employee", "POST", postInsertPaymentPayload);
+        getHttpResponse(serviceEndPoint + "employee", "POST", postInsertPayload);
         String response = getHttpResponse(serviceEndPoint + "employee/52", "GET", null);
         Assert.assertTrue(response.contains(
                 "{\"employees\":{\"employee\":[{\"lastName\":\"Karunaratne\",\"firstName\":\"Sangeeth\"," +
@@ -92,7 +95,7 @@ public class JSONPayloadSampleTestCase extends DSSIntegrationTest {
             "_postemployee_batch_req and _postemployee tags ")
     public void performJsonBatchRequest() {
 
-        String postInsertPaymentPayload = "{\n" +
+        String postInsertPayload = "{\n" +
                 "\"employees\":{\n" +
                 "\"employee\":[\n" +
                 "{\n" +
@@ -112,7 +115,7 @@ public class JSONPayloadSampleTestCase extends DSSIntegrationTest {
                 "]\n" +
                 "}\n" +
                 "}";
-        getHttpResponse(serviceEndPoint + "employee_batch_req", "POST", postInsertPaymentPayload);
+        getHttpResponse(serviceEndPoint + "employee_batch_req", "POST", postInsertPayload);
         String response_employee1 = getHttpResponse(serviceEndPoint + "employee/53", "GET", null);
         String response_employee2 = getHttpResponse(serviceEndPoint + "employee/101", "GET", null);
         Assert.assertTrue(response_employee1.contains("{\"employees\":{\"employee\":[{\"lastName\":\"Sangeeth\"," +
@@ -123,15 +126,15 @@ public class JSONPayloadSampleTestCase extends DSSIntegrationTest {
 
     @Ignore
     @Test(groups = "wso2.dss", description = "Invoking PUT Request without optional fields in JSON payload")
-    public void performJsonPutRequest() {
+    public void performJsonPutRequestWithoutOptionaParameter() {
 
-        String postInsertPaymentPayload = "{\n" +
+        String payload = "{\n" +
                 "\"employee\":{\n" +
                 "\"employeeNumber\":52,\n" +
                 "\"salary\":21400.00\n" +
                 "}\n" +
                 "}";
-        getHttpResponse(serviceEndPoint + "employee", "PUT", postInsertPaymentPayload);
+        getHttpResponse(serviceEndPoint + "employee", "PUT", payload);
         String response = getHttpResponse(serviceEndPoint + "employee/52", "GET", null);
         Assert.assertTrue(response.contains(
                 "{\"employees\":{\"employee\":[{\"lastName\":\"Karunaratne\",\"firstName\":\"Sangeeth\"," +
@@ -139,11 +142,11 @@ public class JSONPayloadSampleTestCase extends DSSIntegrationTest {
     }
 
     @Ignore
-    @Test(groups = "wso2.dss", description = "Invoking POST Request without optional fields in JSON payload as " +
-            "declared in the POST query")
-    public void performJsonPostRequestWithOptionalParameter() {
+    @Test(groups = "wso2.dss", description = "Invoking PUT Request without optional fields in JSON payload as " +
+            "declared in the update query")
+    public void performJsonPutRequestWithOptionalParameter() {
 
-        String postInsertPaymentPayload = "{\n" +
+        String payload = "{\n" +
                 "\"employee\":{\n" +
                 "\"employeeNumber\":52,\n" +
                 "\"firstName\":\"Sangeeth\",\n" +
@@ -151,7 +154,7 @@ public class JSONPayloadSampleTestCase extends DSSIntegrationTest {
                 "\"salary\":18400.00\n" +
                 "}\n" +
                 "}";
-        getHttpResponse(serviceEndPoint + "employee", "PUT", postInsertPaymentPayload);
+        getHttpResponse(serviceEndPoint + "employee", "PUT", payload);
         String response = getHttpResponse(serviceEndPoint + "employee/52", "GET", null);
         Assert.assertTrue(response.contains("{\"employees\":{\"employee\":[{\"lastName\":\"Karunaratne\"," +
                 "\"firstName\":\"Sangeeth\",\"salary\":18400.0}]}}"));
