@@ -18,7 +18,6 @@
 
 package org.wso2.ei.dataservice.integration.test.samples;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.testng.Assert;
@@ -124,7 +123,6 @@ public class JSONPayloadSampleTestCase extends DSSIntegrationTest {
                 "\"firstName\":\"Will\",\"salary\":15500.0}]}}"),"Batch request POST method failed");
     }
 
-    @Ignore
     @Test(groups = "wso2.dss", description = "Invoking PUT Request without optional fields in JSON payload")
     public void performJsonPutRequestWithoutOptionaParameter() {
 
@@ -141,7 +139,6 @@ public class JSONPayloadSampleTestCase extends DSSIntegrationTest {
                         "\"salary\":21400.0}]}}"), "POST method failed");
     }
 
-    @Ignore
     @Test(groups = "wso2.dss", description = "Invoking PUT Request without optional fields in JSON payload as " +
             "declared in the update query")
     public void performJsonPutRequestWithOptionalParameter() {
