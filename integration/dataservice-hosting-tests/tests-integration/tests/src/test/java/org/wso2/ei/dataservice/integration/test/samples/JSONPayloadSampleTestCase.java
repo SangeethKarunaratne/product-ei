@@ -139,7 +139,7 @@ public class JSONPayloadSampleTestCase extends DSSIntegrationTest {
                         "\"salary\":21400.0}]}}"), "POST method failed");
     }
 
-    @Test(groups = "wso2.dss", description = "Invoking PUT Request without optional fields in JSON payload as " +
+    @Test(groups = "wso2.dss", description = "Invoking PUT Request with optional fields in JSON payload as " +
             "declared in the update query")
     public void performJsonPutRequestWithOptionalParameter() {
 
